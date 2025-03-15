@@ -1,0 +1,78 @@
+{
+  "private": true,
+  "name": "app",
+  "scripts": {
+    "build": "node esbuild.config.js --watch",
+    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/tailwind.css --minify",
+    "start": "bin/dev"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.12.8",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.12",
+    "@mui/material": "^6.4.6",
+    "apollo-boost": "^0.4.4",
+    "autoprefixer": "^10.4.20",
+    "axios": "^1.7.9",
+    "baseui": "^9.116.0",
+    "chart.js": "^2.9.3",
+    "dompurify": "^3.2.4",
+    "esbuild-plugin-postcss": "^0.2.1",
+    "gh-pages": "^2.1.1",
+    "graphql": "^16.10.0",
+    "jquery": "^3.7.1",
+    "jquery-confirm": "^3.3.4",
+    "jquery-ujs": "^1.2.3",
+    "postcss": "^8.5.1",
+    "prettier-package-json": "^2.1.3",
+    "react": "^16.10.2",
+    "react-bootstrap": "^1.0.0-beta.16",
+    "react-chartjs-2": "^2.9.0",
+    "react-dom": "^16.10.2",
+    "react-helmet": "^6.1.0",
+    "react-reveal": "^1.2.2",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0",
+    "react-simple-typewriter": "^5.0.1",
+    "react-svg": "^16.3.0",
+    "styled-components": "^6.1.15",
+    "styletron-engine-atomic": "^1.4.6",
+    "styletron-react": "^5.2.7",
+    "tailwindcss": "^4.0.3"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.32",
+    "@types/react-router-dom": "^5.3.3",
+    "esbuild": "^0.24.2",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "prettier": "2.0.5"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.json": "prettier-package-json --write",
+    "*.{js,css,md}": "prettier --write"
+  }
+}
