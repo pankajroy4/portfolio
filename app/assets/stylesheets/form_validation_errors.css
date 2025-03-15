@@ -1,0 +1,41 @@
+.flash__message {
+  animation: slide-up-down 5s ease-in-out forwards;
+  background: rgba(255, 255, 255, 0.13) !important;
+  position: fixed;
+  bottom: 0px !important;
+  right: -100% !important;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-top: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+@keyframes slide-up-down {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  5% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  90% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.flash__header {
+  background-color: #e0115f; /*exact ruby color code */
+  height: 8px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
