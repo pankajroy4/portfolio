@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  body: MyString
+  text: MyString
+  exp_txt_color: MyString
+  highlight: MyString
+  dark: MyString
+  secondary_text: MyString
+  image_highlight: MyString
+  comp_img_highlight: MyString
+  jacket_color: MyString
+  header_color: MyString
+  splash_bg: MyString
+
+two:
+  name: MyString
+  body: MyString
+  text: MyString
+  exp_txt_color: MyString
+  highlight: MyString
+  dark: MyString
+  secondary_text: MyString
+  image_highlight: MyString
+  comp_img_highlight: MyString
+  jacket_color: MyString
+  header_color: MyString
+  splash_bg: MyString

@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project: one
+  software_skill: one
+  position: 1
+
+two:
+  project: two
+  software_skill: two
+  position: 1
