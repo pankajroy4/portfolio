@@ -1,0 +1,28 @@
+.dev-icons {
+  padding-left: 0;
+  list-style: none;
+  font-size: 3rem;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  text-align: center;
+}
+
+.competitive-sites-inline {
+  display: inline-block;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  font-family: "Google Sans Regular";
+  transition: transform 0.3s ease;
+}
+
+.competitive-sites-inline > i {
+  color: #868e96;
+}
+
+.competitive-sites-inline > i:hover {
+  color: #645beb;
+}
+
+.competitive-sites-inline:hover {
+  transform: scale(1.2);
+}
