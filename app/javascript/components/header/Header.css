@@ -1,0 +1,182 @@
+/* header */
+
+.header {
+  display: block;
+  max-width: 90%;
+  padding: 20px 10px;
+  margin: 0px auto;
+}
+
+.header ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  /* background-color: #fff; */
+}
+.grey-color {
+  color: #868e96;
+}
+
+/* added */
+
+.menu-link {
+  text-decoration: none;
+  color: inherit;
+  font-weight: normal;
+  position: relative;
+  margin: 20px;
+  /* padding-bottom: 2px; */
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+.menu-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: currentColor;
+  transition: transform 0.3s ease-out;
+  transform: scaleX(0);
+  transform-origin: center;
+}
+
+.menu-link:hover::after,
+.menu-link.active::after {
+  width: 100%;
+  transform: scaleX(1);
+}
+
+.menu-link.active {
+  font-weight: bold;
+}
+.menu-link:hover {
+  /* font-weight: bold; */
+}
+
+/* added end */
+
+.header .logo {
+  display: block;
+  float: left;
+  font-size: 1.7em;
+  text-decoration: none;
+  margin-top: 10px;
+  line-height: normal;
+}
+.header .logo-name {
+  font-family: "Agustina Regular";
+  font-weight: bold;
+  padding: 0 10px;
+  /* color: #55198b; */
+}
+
+/* menu */
+
+.menu {
+  font-family: "Google Sans Regular";
+}
+
+.header .menu {
+  clear: both;
+  max-height: 0;
+  transition: max-height 0.2s ease-out;
+}
+
+.list-menu {
+  display: flex !important;
+  justify-content: center;
+}
+
+/* menu icon */
+
+.header .menu-icon {
+  cursor: pointer;
+  display: inline-block;
+  float: right;
+  padding: 28px 20px;
+  position: relative;
+  user-select: none;
+}
+
+.header .menu-icon .navicon {
+  background: #333;
+  display: block;
+  height: 2px;
+  position: relative;
+  transition: background 0.2s ease-out;
+  width: 18px;
+}
+
+.header .menu-icon .navicon:before,
+.header .menu-icon .navicon:after {
+  background: #333;
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  transition: all 0.2s ease-out;
+  width: 100%;
+}
+
+.header .menu-icon .navicon:before {
+  top: 5px;
+}
+
+.header .menu-icon .navicon:after {
+  top: -5px;
+}
+
+/* menu btn */
+
+.header .menu-btn {
+  display: none;
+}
+
+.header .menu-btn:checked ~ .menu {
+  max-height: 450px;
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon {
+  background: transparent;
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:before {
+  transform: rotate(-45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:after {
+  transform: rotate(45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+  top: 0;
+}
+
+/* 48em = 768px */
+
+@media (min-width: 73em) {
+  .header li {
+    float: left;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header .menu {
+    max-height: none;
+  }
+  .header .menu-icon {
+    display: none;
+  }
+}
+@media (max-width: 960px) and (min-width: 768px) {
+  .header {
+    font-size: 12px;
+  }
+}
