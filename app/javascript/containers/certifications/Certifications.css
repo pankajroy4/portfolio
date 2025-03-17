@@ -1,0 +1,34 @@
+.certs-header {
+  font-size: 40px;
+  line-height: 1.1;
+  font-family: "Google Sans Regular";
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.certs-body-div {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1380px) {
+  .certs-header {
+    font-size: 35px;
+  }
+}
+
+@media (max-width: 768px) {
+  .certs-body-div {
+    flex-direction: column;
+  }
+
+  .certs-header {
+    font-size: 30px;
+  }
+}
+
+#certs {
+  width: 100%;
+}
