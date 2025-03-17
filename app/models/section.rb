@@ -3,7 +3,7 @@ class Section < ApplicationRecord
 
   before_save :sanitize_svg_data
 
-  validates :section_name, :title, :description, presence: true
+  validates :section_name, :title, presence: true
   private
 
   def sanitize_svg_data
