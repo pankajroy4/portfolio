@@ -46,3 +46,5 @@
 
 /config/credentials/github.key
 /public/uploads/
+
+/config/credentials/production.key
