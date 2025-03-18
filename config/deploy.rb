@@ -17,7 +17,7 @@ set :branch, "main"
 
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, "/var/www/my_app_name"
-set :deploy_to, "/home/ubuntu/#{fetch(:application)}"
+set :deploy_to, "/home/deploy/apps/#{fetch(:application)}"
 
 
 # Default value for :format is :airbrussh.
@@ -45,7 +45,13 @@ set :default_env, { path: "~/.rvm/bin:$PATH" }
 # set :local_user, -> { `git config user.name`.chomp }
 
 # Default value for keep_releases is 5
-set :keep_releases, 5
+set :keep_releases, 2
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+
+set :ssh_options, {
+  keys: %w(/Users/pankajroy/.ssh/pankaj_deploy.pem),
+  forward_agent: true,
+  auth_methods: %w(publickey)
+}

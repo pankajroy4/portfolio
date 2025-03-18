@@ -6,10 +6,16 @@
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
-server "13.203.66.43", user: "ubuntu", roles: %w{app db web}
+server "13.203.66.43", user: "pankaj_roy", roles: %w{app db web}
 
+set :rails_env, 'production'
 
+# Default deploy_to directory is /var/www/my_app_name
+set :deploy_to, '/home/deploy/apps/portfolio'
 
+# Default tmp_dir directory is /var/www/tmp
+set :tmp_dir, "/home/deploy/apps/tmp"
+set :rvm_ruby_version, 'ruby-3.2.0@pankaj-portfolio --create'
 
 # role-based syntax
 # ==================
