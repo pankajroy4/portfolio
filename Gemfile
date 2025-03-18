@@ -66,6 +66,12 @@ group :development do
   gem "letter_opener", "~> 1.4", ">= 1.4.1"
   gem "awesome_print", "~> 1.8"
   gem "graphiql-rails", "~> 1.8.0"
+  gem 'capistrano', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-puma', require: false
+  gem 'capistrano-rbenv', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-nodejs', require: false
 end
 
 group :test do
