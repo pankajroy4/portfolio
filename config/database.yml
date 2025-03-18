@@ -84,4 +84,4 @@ production:
   <<: *default
   database: portfolio_production
   username: pankajroy
-  password: <%= ENV["PORTFOLIO_DATABASE_PASSWORD"] %>
+  password: <%= Rails.application.credentials.dig(:database, :pg_password) %>
