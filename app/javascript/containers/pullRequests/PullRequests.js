@@ -5,6 +5,7 @@ import PullRequestCard from "../../components/pullRequestCard/PullRequestCard";
 import { useQuery } from "@apollo/client";
 import { GET_PULL_REQUESTS } from "../../api/queries/pullRequestsQuery";
 import { PullReqLoading } from "../../components/skeleton/LoadingSkeleton";
+import Error500 from "../../pages/errors/error500/Error";
 
 const PullRequests = ({ theme }) => {
   const { loading, error, data, fetchMore } = useQuery(GET_PULL_REQUESTS, {
@@ -58,7 +59,7 @@ const PullRequests = ({ theme }) => {
       </div>
 
       <div className="pull-request-body-div">
-        {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
+        {error && <Error500 theme={theme}/>}
         {loading && !isFetching && <PullReqLoading />}
         {data?.pullRequests?.pullRequests.map((pullRequest, index) => (
           <PullRequestCard key={index} pullRequest={pullRequest} />
