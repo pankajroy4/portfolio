@@ -19,6 +19,7 @@ themes = [
   { name: "greenTheme", body: "#FFFFEB", text: "#003F2F", exp_txt_color: "#000a12", highlight: "#dddf00", dark: "#00072D", secondary_text: "#4CA58F", image_highlight: "#55a630", comp_img_highlight: "#E6E6E6", jacket_color: "#007f5f", header_color: "#55a63077", splash_bg: "#003F2F" },
   { name: "redTheme", body: "#FFF8E6", text: "#6a040f", exp_txt_color: "#000a12", highlight: "#ffba08", dark: "#03071e", secondary_text: "#964F56", image_highlight: "#dc2f02", comp_img_highlight: "#E6E6E6", jacket_color: "#9d0208", header_color: "#dc2f0277", splash_bg: "#6a040f" },
   { name: "blackTheme", body: "#E5E5E5", text: "#14213d", exp_txt_color: "#000a12", highlight: "#ffffff", dark: "#000000", secondary_text: "#5A6377", image_highlight: "#fca311", comp_img_highlight: "#E6E6E6", jacket_color: "#8d99ae", header_color: "#fca31177", splash_bg: "#14213d" },
+  { name: "darkModeCustom", body: "#121212", text: "#E0E0E0", exp_txt_color: "#B3B3B3", highlight: "#BB86FC", dark: "#000000", secondary_text: "#A1A1A1", image_highlight: "#272727", comp_img_highlight: "#3A3A3A", jacket_color: "#1F1F1F", header_color: "#1E1E1E", splash_bg: "#181818" }
 ]
 
 Document.create(
