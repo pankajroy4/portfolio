@@ -2,9 +2,9 @@
   "private": true,
   "name": "app",
   "scripts": {
-    "build": "node esbuild.config.js --watch",
-    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/tailwind.css --minify",
-    "start": "bin/dev"
+    "build": "NODE_ENV=production node esbuild.config.js",
+    "build:css": "NODE_ENV=production tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/tailwind.css --minify",
+      "start": "bin/rails server -e production"
   },
   "dependencies": {
     "@apollo/client": "^3.12.8",

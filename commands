@@ -1,13 +1,15 @@
 # ==============ACTUAL===================
-scp config/database.yml ubuntu@ec2-13-203-66-43.ap-south-1.compute.amazonaws.com:/home/ubuntu/apps/portfolio/shared/config/database.yml
+# scp config/database.yml ubuntu@ec2-13-203-66-43.ap-south-1.compute.amazonaws.com:/home/ubuntu/apps/portfolio/shared/config/database.yml
 
-scp config/master.key ubuntu@ec2-13-203-66-43.ap-south-1.compute.amazonaws.com:/home/ubuntu/apps/portfolio/shared/config/master.key
+# scp config/master.key ubuntu@ec2-13-203-66-43.ap-south-1.compute.amazonaws.com:/home/ubuntu/apps/portfolio/shared/config/master.key
 
-scp config/credentials/production.key ubuntu@ec2-13-203-66-43.ap-south-1.compute.amazonaws.com:/home/ubuntu/apps/portfolio/shared/config/credentials/production.key
+# scp config/credentials/production.key ubuntu@ec2-13-203-66-43.ap-south-1.compute.amazonaws.com:/home/ubuntu/apps/portfolio/shared/config/credentials/production.key
 
 
-
-# ssh -i /Users/pankajroy/.ssh/pankaj_deploy.pem ubuntu@13.233.151.117
 
 # ssh -i "/Users/pankajroy/.ssh/pankaj_deploy.pem" ubuntu@ec2-13-233-151-117.ap-south-1.compute.amazonaws.com 
 
+#  RAILS_ENV=production bundle exec rails assets:precompile
+#  RAILS_ENV=production bundle exec ./bin/dev &
+# cd ubuntu/apps/portfolio/current
+# RAILS_ENV=production bundle exec rails server &
