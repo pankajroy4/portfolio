@@ -29,6 +29,8 @@ install_plugin Capistrano::SCM::Git
 require "capistrano/rvm"
 require "capistrano/bundler"
 # require "capistrano/rails/assets"
+# As Above line is commented so run the below command manually on virtual machine after deployment:
+# RAILS_ENV=production bundle exec rails assets:precompile
 require "capistrano/rails/migrations"
 # require 'capistrano/faster_assets'
 
