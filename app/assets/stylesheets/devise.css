@@ -247,8 +247,9 @@ body {
 
 @media (max-width: 768px) {
   .glass-form {
-    width: min(95%, 380px);
-  }
+    max-width: 380px;
+    width: 95%;
+  }  
   .social div {
     max-width: 100%;
   }
