@@ -1,4 +1,4 @@
-# ==============ACTUAL===================
+# Commands to move credentials to virtual machines
 # scp config/database.yml ubuntu@ec2-13-203-66-43.ap-south-1.compute.amazonaws.com:/home/ubuntu/apps/portfolio/shared/config/database.yml
 
 # scp config/master.key ubuntu@ec2-13-203-66-43.ap-south-1.compute.amazonaws.com:/home/ubuntu/apps/portfolio/shared/config/master.key
@@ -6,10 +6,41 @@
 # scp config/credentials/production.key ubuntu@ec2-13-203-66-43.ap-south-1.compute.amazonaws.com:/home/ubuntu/apps/portfolio/shared/config/credentials/production.key
 
 
-
+# Command to connect to virtual machine
 # ssh -i "/Users/pankajroy/.ssh/pankaj_deploy.pem" ubuntu@ec2-13-233-151-117.ap-south-1.compute.amazonaws.com 
 
-#  RAILS_ENV=production bundle exec rails assets:precompile
-#  RAILS_ENV=production bundle exec ./bin/dev &
+#Commands
+# cd ..
 # cd ubuntu/apps/portfolio/current
+# RAILS_ENV=production bundle exec rails assets:precompile
+# RAILS_ENV=production bundle exec rails db:seed
 # RAILS_ENV=production bundle exec rails server &
+# cat tmp/pids/server.pid
+
+
+#nginx configuration
+# ======================================
+
+# server {
+#     server_name admin.pankajporwal.live;  # Your domain name here
+
+#     root /home/deploy/ubuntu/portfolio/current/public;  # Adjust to your app's public folder location
+
+#     # Logging
+#     access_log /var/log/nginx/myapp_access.log;
+#     error_log /var/log/nginx/myapp_error.log;
+
+#     # Proxy requests to Puma (on port 3000)
+#     location / {
+#         proxy_pass http://127.0.0.1:3000; 
+#         proxy_set_header Host $host;
+#         proxy_set_header X-Real-IP $remote_addr;
+#         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#         proxy_set_header X-Forwarded-Proto $scheme;
+#     }
+
+#     # Optional: Additional security headers
+#     add_header X-Content-Type-Options nosniff;
+#     add_header X-Frame-Options DENY;
+#     add_header X-XSS-Protection "1; mode=block";
+# }
