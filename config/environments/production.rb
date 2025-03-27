@@ -96,21 +96,22 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   # config.active_job.queue_adapter = :sidekiq
-  # config.active_job.queue_adapter = :inline
+  config.active_job.queue_adapter = :inline
+  Rails.application.routes.default_url_options[:host] = "https://portfolio.pankajroy.in"
 
-  # Rails.application.routes.default_url_options[:host] = "pankajroy.com"
-  # config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
-  # config.action_mailer.perform_deliveries = true
-  # config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.smtp_settings = {
-  #   address: "smtp.gmail.com",
-  #   port: 587,
-  #   domain: "gmail.com",
-  #   user_name: Rails.application.credentials.smtp_username,
-  #   password: Rails.application.credentials.smtp_password,
-  #   authentication: "plain",
-  #   enable_starttls_auto: true,
-  #   open_timeout: 5,
-  #   read_timeout: 5,
-  # }
+  config.action_mailer.default_url_options = { host: "https://portfolio.pankajroy.in" }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    domain: "portfolio.pankajroy.in",
+    user_name: Rails.application.credentials.smtp_username,
+    password: Rails.application.credentials.smtp_password,
+    authentication: "plain",
+    enable_starttls_auto: true,
+    open_timeout: 5,
+    read_timeout: 5,
+  }
+
 end
