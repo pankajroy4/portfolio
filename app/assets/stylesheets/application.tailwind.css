@@ -2,6 +2,6 @@
 @import "./toastr.css";
 @import "./form_validation_errors";
 
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
