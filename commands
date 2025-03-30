@@ -185,7 +185,7 @@ sudo systemctl restart nginx
  cd ~/apps/portfolio/current
 
 #Commands to compile, clobber, seed, server, pid, kill, log 
-  RAILS_ENV=production bundle exec rails assets:clobber #Not needed as we are using esbuild
+  RAILS_ENV=production bundle exec rails assets:clobber
   RAILS_ENV=production bundle exec rails assets:precompile #Not needed as we are using esbuild
   RAILS_ENV=production bundle exec rails db:seed
   RAILS_ENV=production bundle exec rails server &
