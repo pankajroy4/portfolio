@@ -35,6 +35,7 @@ module Portfolio
     config.autoload_paths += %W(#{config.root}/app/controllers)
 
     config.active_record.primary_key = :uuid
-    config.active_job.queue_adapter = :sidekiq
+    # config.active_job.queue_adapter = :sidekiq
+    config.active_job.queue_adapter = :inline
   end
 end
