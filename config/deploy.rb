@@ -4,7 +4,7 @@ set :repo_url, "git@github.com:pankajroy4/portfolio.git"
 set :rvm_type, :user
 set :rvm_ruby_version, "3.2.0"
 
-set :branch, "sub_main" 
+set :branch, "main" 
 set :deploy_to, "/home/ubuntu/apps/#{fetch(:application)}"
 
 set :default_env, {
