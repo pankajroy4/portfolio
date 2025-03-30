@@ -1,46 +1,228 @@
-# Commands to move credentials to virtual machines
-# scp config/database.yml ubuntu@ec2-13-203-66-43.ap-south-1.compute.amazonaws.com:/home/ubuntu/apps/portfolio/shared/config/database.yml
+#Command to SSH to your console:
+ #NOTE: If your SSH config is already set up with the key, or if you're using AWS EC2 default keys, use 1st command.
+    # For using 1st command:
+      # Move .pem file to .ssh folder 
+      # Run following commands:
+      eval "$(ssh-agent -s)"
+      ssh-add ~/.ssh/pankaj_deploy.pem
+    # Now You can use below command
+    ssh ubuntu@ec2-13-233-151-117.ap-south-1.compute.amazonaws.com
+    # OR #If you explicitly need to use a specific SSH key, use second commands
+    ssh -i "/Users/pankajroy/.ssh/pankaj_deploy.pem" ubuntu@ec2-13-233-151-117.ap-south-1.compute.amazonaws.com 
+#  There is one more way. We can also configure the .ssh config file:
+#    Edit or create the file:
+    nano ~/.ssh/config
+  # Add/Edit the host like this:
+    Host pankajroyaws
+      HostName ec2-13-233-151-117.ap-south-1.compute.amazonaws.com
+      User ubuntu #tells SSH which default username to use when connecting. In AWS EC2 instances running Ubuntu, the default user is ubuntu
+      IdentityFile ~/.ssh/pankaj_deploy.pem
+  # Save and exit.
+  # Now you can SSH using a short command:
+   ssh pankajroyaws
 
-# scp config/master.key ubuntu@ec2-13-203-66-43.ap-south-1.compute.amazonaws.com:/home/ubuntu/apps/portfolio/shared/config/master.key
+# =======================================================================================================
 
-# scp config/credentials/production.key ubuntu@ec2-13-203-66-43.ap-south-1.compute.amazonaws.com:/home/ubuntu/apps/portfolio/shared/config/credentials/production.key
+#Add required gem for capistrano.
+  #Note These are local level gems, so add them to your Gemfile in development group (Local machine)
+    gem 'capistrano', require: false
+    gem 'capistrano-rails', require: false
+    gem 'capistrano-puma', require: false
+    gem 'capistrano-rvm', require: false
+    gem 'capistrano-bundler', require: false
+    gem 'capistrano-nodejs', require: false
+#Run bundle install
+#Run command to setup Capistrano configuration:  bundle exec cap install
+
+#Configure the file:
+  Capfile
+  config/deploy/production.rb
+  config/deploy.rb
+
+#Also change the port_number if want to run on different port in puma.rb: config/puma.rb
+#Add DNS/Nameserver at domain provider(Hostinger/Make it point to your server ).
+
+#Note: must configure the file: config/environments/production.rb before deployment
+  # For below process, 1st install nginx on your VM(If not already installed)
+  # SSH to your VM, and run following commands:
+  sudo apt install nginx -y
+  sudo systemctl status nginx
+  sudo systemctl start nginx
+  sudo systemctl enable nginx
+  sudo systemctl reload nginx
+  sudo systemctl restart nginx
 
 
-# Command to connect to virtual machine
-# ssh -i "/Users/pankajroy/.ssh/pankaj_deploy.pem" ubuntu@ec2-13-233-151-117.ap-south-1.compute.amazonaws.com 
+#Configure Nginx for Multiple Applications
+  #Connect to your Virtual machine.
+  #Create Nginx Config for portfolio.pankajroy.in if not have yet.
+  # You can check by: ls -l /etc/nginx/sites-enabled/ 
+  /etc/nginx/sites-available/portfolio
 
-#Commands
-# cd ..
-# cd ubuntu/apps/portfolio/current
-# RAILS_ENV=production bundle exec rails assets:precompile
-# RAILS_ENV=production bundle exec rails db:seed
-# RAILS_ENV=production bundle exec rails server &
-# cat tmp/pids/server.pid
+  #Paste code like this:
+
+  server {
+      server_name portfolio.pankajroy.in;  # Your domain name here
+
+      root /home/ubuntu/apps/portfolio/current/public;  # Adjust to your app's public folder location
+
+      # Logging
+      access_log /var/log/nginx/portfolio_access.log;
+      error_log /var/log/nginx/portfolio_error.log;
+
+      # Proxy requests to Puma (on port 3001)
+      location / {
+          proxy_pass http://127.0.0.1:3001;  # Puma is running on port 3001
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+      }
+
+      # Optional: Additional security headers
+      add_header X-Content-Type-Options nosniff;
+      # add_header X-Frame-Options DENY;
+      add_header Content-Security-Policy "frame-ancestors 'self' https://portfolio.pankajroy.in";
+      add_header X-XSS-Protection "1; mode=block";
 
 
-#nginx configuration
-# ======================================
+      listen 443 ssl; # managed by Certbot
+      ssl_certificate /etc/letsencrypt/live/portfolio.pankajroy.in/fullchain.pem; # managed by Certbot
+      ssl_certificate_key /etc/letsencrypt/live/portfolio.pankajroy.in/privkey.pem; # managed by Certbot
+      include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+      ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
-# server {
-#     server_name admin.pankajporwal.live;  # Your domain name here
+  }
+  server {
+      if ($host = portfolio.pankajroy.in) {
+          return 301 https://$host$request_uri;
+      } # managed by Certbot
 
-#     root /home/deploy/ubuntu/portfolio/current/public;  # Adjust to your app's public folder location
+      server_name portfolio.pankajroy.in;
+      listen 80;
+      return 404; # managed by Certbot
+  }
 
-#     # Logging
-#     access_log /var/log/nginx/myapp_access.log;
-#     error_log /var/log/nginx/myapp_error.log;
+# ==============================================================================
 
-#     # Proxy requests to Puma (on port 3000)
-#     location / {
-#         proxy_pass http://127.0.0.1:3000; 
-#         proxy_set_header Host $host;
-#         proxy_set_header X-Real-IP $remote_addr;
-#         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-#         proxy_set_header X-Forwarded-Proto $scheme;
-#     }
+#Note for below process, first iinstall certbot on your server i.e VM if not installed.
+#SSh to your console and run the following commands:
+sudo apt install certbot python3-certbot-nginx -y
 
-#     # Optional: Additional security headers
-#     add_header X-Content-Type-Options nosniff;
-#     add_header X-Frame-Options DENY;
-#     add_header X-XSS-Protection "1; mode=block";
-# }
+#Check if ssl certificate exist:
+sudo ls -l /etc/letsencrypt/live/portfolio.pankajroy.in/
+#If not reissue a new ssl uasing certboat:
+sudo certbot --nginx -d portfolio.pankajroy.in  #This will automatically configure SSL for Nginx.
+
+#Command to list active nginx file for different 
+ls -l /etc/nginx/sites-enabled/ 
+# These file tells Nginx how to handle incoming requests for your application, including:
+#   Which domain or IP to listen on.
+#   Where the application files are located.
+#   Whether to proxy requests to a backend (e.g., Puma, Passenger).
+#   SSL settings, logging, and other configurations.
+
+#Check for nginx synatx:
+sudo nginx -t
+sudo systemctl restart nginx
+
+#Sometimes when nginx force request to use default proxy, we may need to empty the default configuration.
+#First ssh to your VM, and:
+#Open this file and clear it, then press :Ctrl+o, then hit enter, the press ctrl+x
+ sudo nano /etc/nginx/sites-available/default
+
+# =======================================================================================
+#Now its time to move the credetials files like master key etc to your server.
+  #Both commands use scp (Secure Copy Protocol) to transfer file to a remote server
+  #Commands to move credentials to virtual machines (Run this commands from yopur project root from local machine).
+
+  #If your SSH config is already set up with the key, or if you're using AWS EC2 default keys,
+  #or If the EC2 instance has a dynamic public IP (which changes on restart), then use 1st command.
+  #If you explicitly need to use a specific SSH key, then use 2nd command
+
+  #Note: To use 1st commands:
+  # .pem file must be in .ssh folder, Run following commands first.
+  # chmod 600 ~/.ssh/pankaj_deploy.pem    => set proper permission
+  # eval "$(ssh-agent -s)"  => start the agent
+  # ssh-add ~/.ssh/pankaj_deploy.pem => Add key to ssh agent 
+
+ #Scp the database.yml:
+  scp config/database.yml ubuntu@ec2-13-233-151-117.ap-south-1.compute.amazonaws.com:/home/ubuntu/apps/portfolio/shared/config/database.yml
+  #If you explicitly need to use a specific SSH key
+  scp -i /Users/pankajroy/.ssh/pankaj_deploy.pem  config/database.yml ubuntu@13.233.151.117:/home/ubuntu/apps/portfolio/shared/config/database.yml
+  #OR if have added host in ssh config file like this:
+    #  Host pankajroyaws
+    #   HostName ec2-13-233-151-117.ap-south-1.compute.amazonaws.com
+    #   User ubuntu
+    #   IdentityFile ~/.ssh/pankaj_deploy.pem
+  scp config/database.yml pankajroyaws:/home/ubuntu/apps/portfolio/shared/config/database.yml
+
+#SCP the Master Key 
+  scp config/master.key ubuntu@ec2-13-233-151-117.ap-south-1.compute.amazonaws.com:/home/ubuntu/apps/portfolio/shared/config/master.key
+  #OR
+  scp -i /Users/pankajroy/.ssh/pankaj_deploy.pem config/master.key ubuntu@13.233.151.117:/home/ubuntu/apps/portfolio/shared/config/master.key
+
+#SCP the production key
+  scp config/credentials/production.key ubuntu@ec2-13-233-151-117.ap-south-1.compute.amazonaws.com:/home/ubuntu/apps/portfolio/shared/config/credentials/production.key
+  #OR
+  scp -i /Users/pankajroy/.ssh/pankaj_deploy.pem config/credentials/production.key ubuntu@ec2-13-233-151-117.ap-south-1.compute.amazonaws.com:/home/ubuntu/apps/portfolio/shared/config/credentials/production.key
+
+#SCP the credential key, However not needed.
+  scp config/credentials.yml.enc ubuntu@ec2-13-233-151-117.ap-south-1.compute.amazonaws.com:/home/ubuntu/apps/portfolio/shared/config/credentials.yml.enc
+  #OR
+  scp -i /Users/pankajroy/.ssh/pankaj_deploy.pem config/credentials.yml.enc ubuntu@13.233.151.117:/home/ubuntu/apps/portfolio/shared/config/credentials.yml.enc
+
+# =======================================================================================================
+# Command to deploy the app
+# Goto root location of your app in local machine and run below commands:
+  cap production deploy
+# =========================================================================================================
+
+#SSH to VM and the run this to go to your current deployed apps
+ cd ..
+ cd ubuntu/apps/portfolio/current
+#Or directly 
+ cd ~/apps/portfolio/current
+
+#Commands to compile, clobber, seed, server, pid, kill, log 
+  RAILS_ENV=production bundle exec rails assets:clobber #Not needed as we are using esbuild
+  RAILS_ENV=production bundle exec rails assets:precompile #Not needed as we are using esbuild
+  RAILS_ENV=production bundle exec rails db:seed
+  RAILS_ENV=production bundle exec rails server &
+  RAILS_ENV=production DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rails db:drop db:create db:migrate db:seed
+  cat tmp/pids/server.pid
+  kill -9 12458
+  tail -f log/production.log
+
+  #List content of a folder
+  ls -l public/assets
+
+
+#If need to start puma manually in background (MOSTLY NOT NEEDED)
+ nohup bash -c 'source /home/ubuntu/.rvm/scripts/rvm && RAILS_ENV=production bundle exec puma -C config/puma.rb -b tcp://127.0.0.1:3001' > log/puma.log 2>&1 &
+#Kill puma
+ pkill -f puma
+# ============================================================================================================
+
+#Some Useful commands to run on vm
+  #To see the content of a file on server:
+  #-> SSH to your server and go to current folder
+    cd ..
+    cd ubuntu/apps/portfolio/current
+    # Directly goto current folder
+    cd ~/apps/portfolio/current
+  # Now if you want to see/edit the content of a file
+    # sudo nano file_path
+  example: sudo nano app/models/user.rb
+  #  After edit press,ctrl+o, enter, ctrl+x
+
+#To make a directory:
+mkdir -p /home/ubuntu/apps/portfolio/shared/config/credentials
+#To see memory uses:
+free -h
+#TO remove folder
+sudo rm -f /var/lib/dpkg/lock
+#To remove file
+rm file_path
+#List files inside a folder:
+ls -l ~/apps/portfolio/current/bin
