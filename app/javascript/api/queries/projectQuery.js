@@ -10,6 +10,7 @@ export const GET_PROJECTS = gql`
       duration
       description
       githubUrl
+      other
       bgImages {
         bgImageUrl
       }

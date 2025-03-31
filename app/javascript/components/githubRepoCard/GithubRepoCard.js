@@ -146,7 +146,7 @@ export default function GithubRepoCard({ repo, theme }) {
         }}
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
-        onClick={() => window.open(repo.githubUrl, "_blank")}
+        onClick={() => window.open(repo?.other?.live_url || repo?.githubUrl, "_blank")}
       >
         {images.length > 0 && (
           <img
