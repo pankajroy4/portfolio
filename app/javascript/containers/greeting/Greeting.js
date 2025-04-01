@@ -50,7 +50,7 @@ export default function Greeting(props) {
                   loop={true}
                   cursor
                   cursorStyle={greeting.others?.cursor_style}
-                  typeSpeed={120}
+                  typeSpeed={130}
                   deleteSpeed={50}
                   delaySpeed={1000}
                 />
@@ -70,15 +70,18 @@ export default function Greeting(props) {
                   theme={theme}
                   className="portfolio-repo-btn"
                 >
-                  <Typewriter
-                    words={greeting.others?.btn_typewriter}
+                  {/* <Typewriter
+                    words={greeting.others?.btn_typewriter[0]}
                     loop={true}
                     cursor
                     cursorStyle="|"
                     typeSpeed={60}
                     deleteSpeed={50}
                     delaySpeed={1000}
-                  />
+                  /> */}
+                  <Pulse duration={1500}>
+                    {greeting.others?.btn_typewriter[0]}
+                  </Pulse>
                 </Button>
               </div>
             </div>
