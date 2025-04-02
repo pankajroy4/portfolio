@@ -55,14 +55,14 @@
 
 #Configure Nginx for Multiple Applications
   #Connect to your Virtual machine.
-  #Create Nginx Config for portfolio.pankajroy.in if not have yet.
+  #Create Nginx Config for pankajroy.in if not have yet.
   # You can check by: ls -l /etc/nginx/sites-enabled/ 
   /etc/nginx/sites-available/portfolio
 
   #Paste code like this:
 
   server {
-      server_name portfolio.pankajroy.in;  # Your domain name here
+      server_name pankajroy.in;  # Your domain name here
 
       root /home/ubuntu/apps/portfolio/current/public;  # Adjust to your app's public folder location
 
@@ -82,23 +82,23 @@
       # Optional: Additional security headers
       add_header X-Content-Type-Options nosniff;
       # add_header X-Frame-Options DENY;
-      add_header Content-Security-Policy "frame-ancestors 'self' https://portfolio.pankajroy.in";
+      add_header Content-Security-Policy "frame-ancestors 'self' https://pankajroy.in";
       add_header X-XSS-Protection "1; mode=block";
 
 
       listen 443 ssl; # managed by Certbot
-      ssl_certificate /etc/letsencrypt/live/portfolio.pankajroy.in/fullchain.pem; # managed by Certbot
-      ssl_certificate_key /etc/letsencrypt/live/portfolio.pankajroy.in/privkey.pem; # managed by Certbot
+      ssl_certificate /etc/letsencrypt/live/pankajroy.in/fullchain.pem; # managed by Certbot
+      ssl_certificate_key /etc/letsencrypt/live/pankajroy.in/privkey.pem; # managed by Certbot
       include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
       ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
   }
   server {
-      if ($host = portfolio.pankajroy.in) {
+      if ($host = pankajroy.in) {
           return 301 https://$host$request_uri;
       } # managed by Certbot
 
-      server_name portfolio.pankajroy.in;
+      server_name pankajroy.in;
       listen 80;
       return 404; # managed by Certbot
   }
@@ -110,9 +110,9 @@
 sudo apt install certbot python3-certbot-nginx -y
 
 #Check if ssl certificate exist:
-sudo ls -l /etc/letsencrypt/live/portfolio.pankajroy.in/
+sudo ls -l /etc/letsencrypt/live/pankajroy.in/
 #If not reissue a new ssl uasing certboat:
-sudo certbot --nginx -d portfolio.pankajroy.in  #This will automatically configure SSL for Nginx.
+sudo certbot --nginx -d pankajroy.in  #This will automatically configure SSL for Nginx.
 
 #Command to list active nginx file for different 
 ls -l /etc/nginx/sites-enabled/ 
