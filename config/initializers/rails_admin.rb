@@ -54,7 +54,7 @@ RailsAdmin.config do |config|
     end
   end
 
-  ["BgImage", "Certificate", "CompetitiveSite", "Degree", "Document", "Experience", "PaymentGatewayMode", "Project", "Section", "SiteConfiguration", "Skill", "SocialMedia", "SoftwareSkill", "Theme", "User"].each do |imodel|
+  ["BgImage", "Certificate", "CompetitiveSite", "Degree", "Document", "Experience", "Project", "Section", "SiteConfiguration", "Skill", "SocialMedia", "SoftwareSkill", "Theme", "User"].each do |imodel|
     config.model imodel do
       list do
         exclude_fields :created_at, :updated_at, :id

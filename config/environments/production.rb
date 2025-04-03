@@ -18,6 +18,11 @@ Rails.application.configure do
   # want to log everything, set the level to "debug".
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
+
+  config.log_formatter = ::Logger::Formatter.new
+  config.logger = Logger.new(Rails.root.join('log', 'production.log'))
+  config.log_level = :debug
+
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
   # config.active_job.queue_name_prefix = "portfolio_production"
