@@ -8,49 +8,130 @@ RailsAdmin.config do |config|
   config.parent_controller = "::ApplicationController"
   config.authorize_with :pundit
 
-  # config.model 'SiteConfiguration' do
-  #   edit do
-  #     field :settings, :json
-  #     field :seo, :json
-  #     field :image, :carrierwave
+  config.model "ProjectSoftwareSkill" do
+    visible false
+  end
 
-  #     field :greeting_image_file, :string do
-  #       label "Greeting Section Image"
-  #       help "Upload an image for the Greeting section"
-  #       html_attributes do
-  #         { type: "file" }
-  #       end
-  #     end
+  config.model "SoftwareSkill" do
+    object_label_method :skill_name
+  end
 
-  #     field :projects_header_image_file, :string do
-  #       label "Projects Header Image"
-  #       help "Upload an image for the Projects section"
-  #       html_attributes do
-  #         { type: "file" }
-  #       end
-  #     end
+  #Order of field declaration block matter, if we put this block in last then it will not work and show all fields.
 
-  #     field :publications_header_image_file, :string do
-  #       label "Publications Header Image"
-  #       help "Upload an image for the Publications section"
-  #       html_attributes do
-  #         { type: "file" }
-  #       end
-  #     end
+  config.model "SoftwareSkill" do
+    edit do
+      field :skill_name
+      field :font_aws_icon_class
+      field :style
+      field :position
+      field :skill
+      field :projects
+    end
+  end
 
-  #     field :experience_header_image_file, :string do
-  #       label "Experience Header Image"
-  #       help "Upload an image for the Experience section"
-  #       html_attributes do
-  #         { type: "file" }
-  #       end
-  #     end
-  #   end
-  # end
+  config.model "Project" do
+    edit do
+      field :name
+      field :start_date
+      field :end_date
+      field :description
+      field :github_url
+      field :other
+      field :position
+      field :software_skills
+    end
+  end
+
+  config.model "User" do
+    edit do
+      field :email
+      field :name
+      field :password
+      field :role
+      field :profile_image
+      field :confirmed_at
+      field :uid
+    end
+  end
+
+  ["BgImage", "Certificate", "CompetitiveSite", "Degree", "Document", "Experience", "PaymentGatewayMode", "Project", "Section", "SiteConfiguration", "Skill", "SocialMedia", "SoftwareSkill", "Theme", "User"].each do |imodel|
+    config.model imodel do
+      list do
+        exclude_fields :created_at, :updated_at, :id
+      end
+      update do
+        exclude_fields :created_at, :updated_at, :id
+      end
+    end
+  end
+
+  config.model "Section" do
+    list do
+      exclude_fields :section_image, :others, :button, :description
+    end
+  end
+
+  config.model "Skill" do
+    list do
+      exclude_fields :software_skills, :skill_image, :skill_highlight
+    end
+  end
+
+  config.model "Certificate" do
+    list do
+      exclude_fields :logo_image, :alt_name
+    end
+  end
+
+  config.model "Degree" do
+    list do
+      exclude_fields :logo_image, :description
+    end
+  end
+
+  config.model "Experience" do
+    list do
+      exclude_fields :company_logo_image, :description, :logo_color
+    end
+  end
+
+  config.model "SiteConfiguration" do
+    list do
+      exclude_fields :seo, :menu_items, :address
+    end
+  end
+
+  config.model "SoftwareSkill" do
+    exclude_fields :project_software_skills
+
+    list do
+      exclude_fields :project_software_skills, :style
+    end
+  end
+
+  config.model "Project" do
+    exclude_fields :bg_images, :project_software_skills, :documents # Global exclusion
+
+    list do
+      exclude_fields :bg_images, :project_software_skills, :documents, :description, :other, :software_skills
+    end
+  end
+
+  config.model "User" do
+    exclude_fields :password, :password_confirmation, :reset_password_sent_at, :remember_created_at, :confirmation_token, :confirmation_sent_at, :unconfirmed_email, :tokens, :provider
+
+    list do
+      exclude_fields :password, :password_confirmation, :reset_password_sent_at, :remember_created_at, :confirmation_token, :confirmation_sent_at, :unconfirmed_email, :tokens, :provider
+    end
+
+    edit do
+      exclude_fields :password_confirmation, :reset_password_sent_at, :remember_created_at, :confirmation_token, :confirmation_sent_at, :unconfirmed_email, :tokens, :provider
+    end
+  end
 
   config.actions do
-    dashboard                     # mandatory
-    index                         # mandatory
+    dashboard
+    index
     new
     export
     bulk_delete
@@ -58,9 +139,5 @@ RailsAdmin.config do |config|
     edit
     delete
     show_in_app
-
-    ## With an audit adapter, you can add:
-    # history_index
-    # history_show
   end
 end
