@@ -11,8 +11,14 @@
   <%= f.label :email, "Email", class: "label" %>
   <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email", class: "input-field" %>
 
-  <%= f.label :password, "Password", class: "label" %>
-  <%= f.password_field :password, autocomplete: "current-password", placeholder: "Password", class: "input-field" %>
+  <div class="password-container">
+    <%= f.label :password, "Password", class: "label" %>
+    <div class="password-wrapper" data-controller="toggle-password">
+      <%= f.password_field :password, autocomplete: "current-password", placeholder: "Password", class: "input-field", id: "password-field", data: { toggle_password_target: "password" } %>
+      <i class="fas fa-eye toggle-password-icon" data-action="click->toggle-password#toggle" data-toggle-password-target="icon"></i>
+    </div>
+  </div>
+
 
   <% if devise_mapping.rememberable? %>
     <div class="field remember_me">

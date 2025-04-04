@@ -15,3 +15,6 @@ application.register("hello", HelloController);
 
 import RemovalsController from "./removals_controller";
 application.register("removals", RemovalsController);
+
+import togglePasswordController from "./toggle_password_controller";
+application.register("toggle-password", togglePasswordController);
