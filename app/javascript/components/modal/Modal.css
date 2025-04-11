@@ -21,13 +21,24 @@
 
 .modal-close-btn {
   position: absolute;
-  top: -5px;
-  right: 4px;
+  top: -8px;
+  right: -8px;
+  width: 40px;
+  height: 40px;
   border: none;
-  background: none;
-  font-style: bold;
-  font-size: 30px;
+  background-color: #fff;
+  color: #000;
+  font-weight: bold;
+  font-size: 24px;
+  border-radius: 50%;
   cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  background-color: #3f3c3c;
+  color: #fff;
 }
 
 .modal-iframe {
