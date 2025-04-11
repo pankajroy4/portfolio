@@ -42,9 +42,6 @@ const SkillSection = ({ theme }) => {
         return (
           <div key={i} className="skills-main-div">
             <Fade left duration={2000}>
-              {/* <div className="skills-image-div">
-                <GetSkillSvg fileName={skill.filename} theme={theme} />
-              </div> */}
               {skill.skillSvgData ? (
                 <SafeSvgRenderer
                   svgString={skill.skillSvgData}
@@ -57,9 +54,11 @@ const SkillSection = ({ theme }) => {
                   className={"skills-image-div"}
                 />
               ) : (
-                <div className="skills-image-div">
-                  <GetSkillSvg fileName={skill.filename} theme={theme} />
-                </div>
+                <Fade left duration={2000}>
+                  <div className="skills-image-div">
+                    <GetSkillSvg fileName={skill.filename} theme={theme} />
+                  </div>
+                </Fade>
               )}
             </Fade>
 

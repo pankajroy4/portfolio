@@ -259,9 +259,9 @@ sections = [
     section_name: "Greeting", 
     title: "Pankaj Kumar", 
     subtitle: "Pankaj Kumar", 
-    button: {}, 
-    description: "An enthusiastic problem-solver passionate about developing end-to-end products that drive innovation, sustainability, and long-term scalability, creating impactful solutions that bridge technology and society", 
-    others: { typewriter: ["Pankaj Kumar 👋...", "Full Stack Developer"], btn_typewriter: ["⭐ Let’s Shine Together!", "⭐ Star It Now!"], cursor_style: "|", repository: "https://github.com/pankajroy4/portfolio" }, 
+    button: { to: "https://github.com/pankajroy4/portfolio", label: "⭐ Let’s Shine Together!" },
+    description: "An enthusiastic problem-solver passionate about developing end-to-end products that drive innovation, sustainability, and long-term scalability, creating impactful solutions that bridge technology and society.",
+    others: { typewriter: ["Full Stack Developer", "Ruby on Rails Developer", "MERN Stack Developer"], cursor_style: "|", wave_emoji: "👋", },
     section_svg_data: 
     '<svg xmlns="http://www.w3.org/2000/svg" width="829.131" height="587.676" viewBox="0 0 829.131 587.676" transform="scale(-1 1)">
       <path fill="#ffb6b6" d="m85.757 572.858 13.761-.001 6.547-53.082-20.311.001z"/>
