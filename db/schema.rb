@@ -102,7 +102,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_07_131535) do
     t.date "end_date"
     t.text "description"
     t.string "github_url"
-    t.jsonb "other", default: {}
+    t.jsonb "other", default: {"live_url"=>"https://neogopingbus.pankajroy.in/"}
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -116,7 +116,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_07_131535) do
     t.string "subtitle"
     t.jsonb "button", default: {"to"=>"https://www.github.com", "label"=>"More Projects", "map_embed_src"=>"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1"}
     t.string "description", default: "An enthusiastic problem-solver passionate about developing end-to-end products that drive innovation, sustainability, and long-term scalability, creating impactful solutions that bridge technology and society."
-    t.jsonb "others", default: {"email"=>"abc@gmail.com", "phone"=>"+91 1234567890", "repository"=>"https://github.com/pankajroy4/portfolio", "typewriter"=>["Pankaj Kumar 👋...", "Full Stack Developer", "Syntax & Stories", "Compiling Dreams"], "cursor_style"=>"🔥", "btn_typewriter"=>["⭐ Let’s Shine Together!", "⭐ Star It Now!"]}
+    t.jsonb "others", default: {"email"=>"abc@gmail.com", "phone"=>"+91 1234567890", "typewriter"=>["Full Stack Developer", "Syntax & Stories", "Compiling Dreams"], "wave_emoji"=>" 👋", "cursor_style"=>"🔥"}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["section_name"], name: "index_sections_on_section_name", unique: true

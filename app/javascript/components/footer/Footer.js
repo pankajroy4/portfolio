@@ -18,8 +18,15 @@ export default function Footer() {
           className="footer-text"
           style={{ color: siteConfig?.theme?.secondaryText }}
         >
-          𝕮𝖗𝖆𝖋𝖙𝖊𝖉 𝖜𝖎𝖙𝖍 <span role="img">☕</span> & <span role="img">❤️</span>{" "}
-          𝖇𝖞 {formatName(siteConfig?.logoName)}
+          Crafted with{" "}
+          <span role="img" aria-labelledby="coffee">
+            ☕
+          </span>{" "}
+          &{" "}
+          <span role="img" aria-labelledby="love">
+            ❤️
+          </span>{" "}
+          by {formatName(siteConfig?.logoName)}
         </p>
         {/* <ToggleSwitch theme={props.theme} onToggle={props.onToggle}/> */}
       </Fade>

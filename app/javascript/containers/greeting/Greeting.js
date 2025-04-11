@@ -10,26 +10,7 @@ import SafeSvgRenderer from "../../components/safeSvgRenderer/SafeSvgRenderer";
 import { Typewriter } from "react-simple-typewriter";
 import { LoadingSkeleton } from "../../components/skeleton/LoadingSkeleton";
 import { useSectionData } from "../../api/useSectionData";
-
-const Button = ({ newTab, href, theme, className, children }) => {
-  return (
-    <div className={className}>
-      <a
-        href={href}
-        target={newTab ? "_blank" : "_self"}
-        rel="noopener noreferrer"
-        className="main-button"
-        style={{
-          color: theme.body,
-          backgroundColor: theme.text,
-          border: `solid 1px ${theme.text}`,
-        }}
-      >
-        {children}
-      </a>
-    </div>
-  );
-};
+import Button from "../../components/button/Button";
 
 export default function Greeting(props) {
   const theme = props.theme;
@@ -45,17 +26,23 @@ export default function Greeting(props) {
           <div className="greeting-text-div">
             <div>
               <h1 className="greeting-text" style={{ color: theme.text }}>
+                {greeting?.title}{" "}
+                <span className="wave" role="img" aria-labelledby="wave">
+                  {" "}
+                  {greeting?.others?.wave_emoji}{" "}
+                </span>
+              </h1>
+              <h3 className="greeting-typewriter" style={{ color: theme.text }}>
                 <Typewriter
                   words={greeting.others?.typewriter}
                   loop={true}
                   cursor
                   cursorStyle={greeting.others?.cursor_style}
-                  typeSpeed={130}
+                  typeSpeed={100}
                   deleteSpeed={50}
                   delaySpeed={1000}
                 />
-              </h1>
-
+              </h3>
               <p
                 className="greeting-text-p subTitle"
                 style={{ color: theme.secondaryText }}
@@ -64,25 +51,15 @@ export default function Greeting(props) {
               </p>
               <SocialMedia theme={theme} />
               <div className="portfolio-repo-btn-div">
-                <Button
-                  newTab={true}
-                  href={greeting.others?.repository}
-                  theme={theme}
-                  className="portfolio-repo-btn"
-                >
-                  {/* <Typewriter
-                    words={greeting.others?.btn_typewriter[0]}
-                    loop={true}
-                    cursor
-                    cursorStyle="|"
-                    typeSpeed={60}
-                    deleteSpeed={50}
-                    delaySpeed={1000}
-                  /> */}
-                  <Pulse duration={1500}>
-                    {greeting.others?.btn_typewriter[0]}
-                  </Pulse>
-                </Button>
+                <Pulse duration={1500}>
+                  <Button
+                    newTab={true}
+                    href={greeting.button?.to}
+                    theme={theme}
+                    className="portfolio-repo-btn"
+                    text={greeting.button?.label}
+                  />
+                </Pulse>
               </div>
             </div>
           </div>
