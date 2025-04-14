@@ -24,7 +24,7 @@ const CertificationCard = ({ certificate, theme }) => {
               />
             </div>
             <div className="content-details fadeIn-top">
-              <h3 className="content-title" style={{ color: theme.body }}>
+              <h3 className="content-title" style={{ color: "white" }}>
                 Certificate
               </h3>
             </div>
