@@ -33,7 +33,7 @@ const ExperienceAccordion = ({ theme }) => {
               Header: {
                 style: () => ({
                   backgroundColor: theme.body,
-                  border: "1px solid",
+                  border: "2px solid",
                   borderRadius: "5px",
                   borderColor: theme.headerColor,
                   marginBottom: "3px",
@@ -47,6 +47,11 @@ const ExperienceAccordion = ({ theme }) => {
               Content: {
                 style: () => ({
                   backgroundColor: theme.body,
+                }),
+              },
+              ToggleIcon: {
+                style: () => ({
+                  color: theme.text,
                 }),
               },
             }}

@@ -68,6 +68,7 @@ const ExperienceCard = ({ experience, index, totalCards, theme }) => {
                     href={experience.companyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    style={{ color: theme.text }}
                   >
                     {experience.companyName}
                   </a>
@@ -95,6 +96,7 @@ const ExperienceCard = ({ experience, index, totalCards, theme }) => {
                 display: "flex",
                 justifyContent: "flex-start",
                 marginTop: 20,
+                color: theme.text,
               }}
             >
               <div className="repo-description" />
