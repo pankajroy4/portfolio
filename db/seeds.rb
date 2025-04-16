@@ -569,12 +569,12 @@ end
 
 # Creating Social Media
 social_medias = [
-  { name: "LinkedIn", link: "https://www.linkedin.com/in/pankaj-kumar-roy/", font_aws_icon_class: "fa-linkedin", bg_hash_code: "#0077B5", position: 1 },
-  { name: "Github", link: "https://github.com/pankajroy4/", font_aws_icon_class: "fa-github", bg_hash_code: "#181717", position: 2 },
-  { name: "Gmail", link: "mailto:pankajroy842002@gmail.com", font_aws_icon_class: "fa-google", bg_hash_code: "#D14836", position: 3 },
-  { name: "Instagram", link: "https://www.instagram.com/pankajroy.4/", font_aws_icon_class: "fa-instagram", bg_hash_code: "#E4405F", position: 5 },
-  { name: "Facebook", link: "https://www.facebook.com/profile.php?id=100011546926692", font_aws_icon_class: "fa-facebook-f", bg_hash_code: "#1877F2", position: 6 },
-  { name: "Twitter", link: "https://x.com/PankajR01429291/with_replies", font_aws_icon_class: "garden:twitter-stroke-16", bg_hash_code: "#000000", position: 7 },
+  { name: "LinkedIn", link: "https://www.linkedin.com/in/pankaj-kumar-roy/", font_aws_icon_class: "devicon:linkedin", bg_hash_code: "#0077B5", position: 1 },
+  { name: "Github", link: "https://github.com/pankajroy4/", font_aws_icon_class: "bi:github", bg_hash_code: "", position: 2 },
+  { name: "Gmail", link: "mailto:pankajroy842002@gmail.com", font_aws_icon_class: "logos:google-gmail", bg_hash_code: "", position: 3 },
+  { name: "Instagram", link: "https://www.instagram.com/pankajroy.4/", font_aws_icon_class: "skill-icons:instagram", bg_hash_code: "", position: 5 },
+  { name: "Facebook", link: "https://www.facebook.com/profile.php?id=100011546926692", font_aws_icon_class: "logos:facebook", bg_hash_code: "", position: 6 },
+  { name: "Twitter", link: "https://x.com/PankajR01429291/with_replies", font_aws_icon_class: "prime:twitter", bg_hash_code: "", position: 7 },
 ]
 
 social_medias.each do |social_media|
