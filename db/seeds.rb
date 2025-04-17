@@ -240,7 +240,7 @@ software_skills = [
   { skill_name: "MacOs", font_aws_icon_class: "cib:apple", style: {}, position: 33, skill: tools_and_platform },
   { skill_name: "Ubuntu", font_aws_icon_class: "simple-icons:ubuntu", style: { "color": "#E95420" }, position: 34, skill: tools_and_platform },
   { skill_name: "VScode", font_aws_icon_class: "simple-icons:visualstudiocode", style: { "color": "#007ACC" }, position: 35, skill: tools_and_platform },
-  { skill_name: "Slack", font_aws_icon_class: "simple-icons:slack", style: { "color": "#4A154B" }, position: 36, skill: tools_and_platform },
+  { skill_name: "Slack", font_aws_icon_class: "devicon:slack", style: {}, position: 36, skill: tools_and_platform },
   { skill_name: "Skype", font_aws_icon_class: "simple-icons:skype", style: { "color": "#00AFF0" }, position: 37, skill: tools_and_platform },
   { skill_name: "Git", font_aws_icon_class: "simple-icons:git", style: { "color": "#F05032" }, position: 38, skill: tools_and_platform },
   { skill_name: "Github", font_aws_icon_class: "bi:github", style: {}, position: 39, skill: tools_and_platform },
