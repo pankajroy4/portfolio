@@ -37,9 +37,6 @@ Changes are instantly reflected on the site—no code editing required.
 Before running the app, ensure **PostgreSQL** is installed and a database role exists to match the configuration in `config/database.yml`.
 
 ### 1. Create PostgreSQL User
-
-🔐 You can use your own username/password, but don't forget to update config/database.yml accordingly.
-
 ```bash
 
 # Open PostgreSQL shell
@@ -53,12 +50,14 @@ ALTER ROLE pankajroy CREATEDB;
 
 # Exit
 \q
-
+```
+🔐 You can use your own username/password, but don't forget to update config/database.yml accordingly.
 
 ## 🚀 Getting Started
 
 To run this project locally:
 
+```bash
 
 # Clone the repo
 git clone https://github.com/pankajroy4/portfolio.git
@@ -74,7 +73,13 @@ yarn install
 Your postgres database should have user setup and persmissons( see database.yml for more info)
 rails db:create db:migrate db:seed
 
+You can also update the content in seed.rb to get content updated.
+After updating seed.rb , again run the command:   rails db:drop db:create db:migrate db:seed
+
 # Start the Rails and React servers
 rails s
  or
-./bin/dev
+ ./bin/dev
+```
+## 🖼 Demo
+www.pankajroy.in
