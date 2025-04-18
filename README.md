@@ -45,7 +45,7 @@ Changes are instantly reflected on the site—no code editing required.
 - PostgreSQL
 - Yarn (npm install -g yarn if not already installed)
   
-⚠️ It's recommended to use a version manager like rbenv or rvm for Ruby, and nvm for Node.js.
+⚠️ It's recommended to use a version manager like rvm for Ruby, and nvm for Node.js.
 
 Before running the app, ensure **PostgreSQL** is installed and a database role exists to match the configuration in `config/database.yml`.
 
