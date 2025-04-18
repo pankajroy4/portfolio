@@ -69,7 +69,7 @@ ALTER ROLE pankajroy CREATEDB;
 
 
 To run this project locally:
-### 2. To run this project locally:
+### 3. To run this project locally:
 
 ```bash
 
