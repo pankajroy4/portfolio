@@ -23,11 +23,14 @@ A fully customizable and dynamic personal portfolio built with **Ruby on Rails**
 
 Update your portfolio content as easily as filling out an online form! The admin dashboard includes sections for:
 
-- 📌 Greeting  
-- 📂 Projects & Experience  
-- 🛠 Skills & Tools  
-- 🌐 Social Media Links  
-- ✉️ Contact Information etc.
+- 📌 Greeting  – Customize your hero section message and introduction
+- 📂 Projects & Experience - Showcase your work, roles, and timeline
+- 🛠 Skills & Tools – Add or edit your technical and soft skills
+- 🌐 Social Media Links – Manage your links to platforms like GitHub, LinkedIn, etc.
+- ✉️ Contact Information - Set your email, location, and other contact details
+- 🎓 Certificates – Upload and display your professional certificates and achievements
+- 🎨 Themes – Choose or customize visual themes for your site
+- 🛠️ Site Configurations – Manage global settings like SEO metadata, default theme, landing animated signature, layout preferences, and site-wide titles
 
 Changes are instantly reflected on the site—no code editing required.
 
