@@ -31,12 +31,22 @@ Update your portfolio content as easily as filling out an online form! The admin
 
 Changes are instantly reflected on the site—no code editing required.
 
+## 🚀 Getting Started
 
-## 🗃️ Database Setup
+### 📦 1. Prerequisites
+
+#### Make sure you have the following installed on your system:
+  
+- Ruby 3.2.0
+- Node.js 18.x
+- PostgreSQL
+- Yarn (npm install -g yarn if not already installed)
+  
+⚠️ It's recommended to use a version manager like rbenv or rvm for Ruby, and nvm for Node.js.
 
 Before running the app, ensure **PostgreSQL** is installed and a database role exists to match the configuration in `config/database.yml`.
 
-### 1. Create PostgreSQL User
+### 2. Create PostgreSQL User
 ```bash
 
 # Open PostgreSQL shell
@@ -53,7 +63,7 @@ ALTER ROLE pankajroy CREATEDB;
 ```
 🔐 You can use your own username/password, but don't forget to update config/database.yml accordingly.
 
-## 🚀 Getting Started
+
 
 To run this project locally:
 
@@ -70,7 +80,6 @@ bundle install
 yarn install
 
 # Setup database
-Your postgres database should have user setup and persmissons( see database.yml for more info)
 rails db:create db:migrate db:seed
 
 You can also update the content in seed.rb to get content updated.
@@ -81,5 +90,5 @@ rails s
  or
  ./bin/dev
 ```
-## 🖼 Demo
+## 🖼 Live
 www.pankajroy.in
