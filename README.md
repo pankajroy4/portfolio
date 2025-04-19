@@ -67,8 +67,6 @@ ALTER ROLE pankajroy CREATEDB;
 🔐 You can use your own username/password, but don't forget to update config/database.yml accordingly.
 
 
-
-To run this project locally:
 ### 3. To run this project locally:
 
 ```bash
