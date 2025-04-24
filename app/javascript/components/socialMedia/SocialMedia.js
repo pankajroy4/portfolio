@@ -10,7 +10,6 @@ const SocialMedia = () => {
 
   const socialMedias = data?.socialMedias || [];
   if (loading || error) return;
-  console.log(socialMedias);
   return (
     <div className="social-media-div">
       <ul className="social-icons">
