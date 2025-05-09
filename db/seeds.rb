@@ -453,7 +453,7 @@ projects.each do |project|
 end
 
 # Associating Projects and Software skills
-sevatas = Project.find_by(name: "Horizon - A Sevatas company")
+sevatas = Project.find_by(name: "Horizon - Sevatas online claim portal")
 skills = SoftwareSkill.where(skill_name: ["Ruby", "RubyOnRails", "jQuery", "MongoDB"])
 skills.each do |skill|
   sevatas.software_skills << skill unless sevatas.software_skills.include?(skill)
