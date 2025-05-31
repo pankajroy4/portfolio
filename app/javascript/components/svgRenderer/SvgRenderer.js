@@ -32,7 +32,7 @@ const SvgRenderer = ({
         src={svgUrl}
         alt="Rendered Image"
         style={{
-          objectFit: "contain",
+          objectFit: "cover",
         }}
       />
     </div>
