@@ -428,7 +428,7 @@ end
 
 #Create projects
 projects = [
-  { name: "Horizon - A Sevatas company", start_date: Date.strptime("12/8/2024", "%d/%m/%Y"), end_date: "", description: "Worked on feature development for Horizon, automating the claim process for clients, dealers, and liable parties for Volkswagen, Renault, and Audi. Automated invoice generation by writing background jobs, workers, and services. Developed systems for uploading invoices, part prices, and optimized the database with rake tasks. Improved efficiency by reducing a critical 18-hour task to just 6 minutes.", github_url: "https://sevatas.com/", other: {live_url: "https://sevatas.com/"}, position: 1 },
+  { name: "Horizon - Sevatas online claim portal", start_date: Date.strptime("12/8/2024", "%d/%m/%Y"), end_date: "", description: "Worked on feature development for Horizon, automating the claim process for clients, dealers, and liable parties for Volkswagen, Renault, and Audi. Automated invoice generation by writing background jobs, workers, and services. Developed systems for uploading invoices, part prices, and optimized the database with rake tasks. Improved efficiency by reducing a critical 18-hour task to just 6 minutes.", github_url: "https://sevatas.com/", other: {live_url: "https://sevatas.com/"}, position: 1 },
 
   { name: "Pure Pani", start_date: Date.strptime("1/03/2024", "%d/%m/%Y"), end_date: Date.strptime("10/08/2024", "%d/%m/%Y"), description: "Developed GraphQL APIs, designed data models, and implemented operations and rake tasks for a water delivery management platform. Improved customer engagement by 30% and optimized workflows like automated invoicing and delivery tracking. Ensured system performance and reliability through RSpec testing.", github_url: "https://www.purepani.in/", other: {live_url: "https://www.purepani.in/"}, position: 2 },
 
@@ -456,7 +456,7 @@ end
 sevatas = Project.find_by(name: "Horizon - Sevatas online claim portal")
 skills = SoftwareSkill.where(skill_name: ["Ruby", "RubyOnRails", "jQuery", "MongoDB"])
 skills.each do |skill|
-  sevatas.software_skills << skill unless sevatas.software_skills.include?(skill)
+  sevatas.software_skills << skill unless sevatas&.software_skills&.include?(skill)
 end
 
 pure_pani = Project.find_by(name: "Pure Pani")
