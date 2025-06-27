@@ -226,3 +226,75 @@ sudo rm -f /var/lib/dpkg/lock
 rm file_path
 #List files inside a folder:
 ls -l ~/apps/portfolio/current/bin
+
+
+===================================Docker deployment Commands ========================================
+
+1: For data seeding: Run from root of your project: ubuntu@ip-172-31-15-156:~/apps/portfolio
+
+  docker exec -it portfolio-web-1 bundle exec rails db:seed
+
+2: List all process:
+    docker ps
+
+3: View Deployment log. Run from root of project.
+  docker logs portfolio-web-1 --tail 100
+
+4: Open a bash terminal to run rails commands:
+    docker exec -it portfolio-web-1 bash
+
+    Then we can run : bundle exec rails c
+    Or view production log: tail -n 100 log/production.log
+
+5: Test deployment
+    curl -L -H "Host: pankajroy.in" http://localhost
+
+6: View ngnix setup for the project:
+   cat /etc/nginx/sites-available/portfolio
+
+-------------------------------------------------------------------------------------------------------------
+NOTE: For successful ci/cd deployment using docker, you must create docker-compose.yml file at server at root location and paste the production version of docker-compose in it.
+Exmaple: First ssh to you server.
+         You must create your root folder:
+            mkdir -p ~/apps/portfolio
+            cd ~/apps/portfolio
+            nano docker-compose.yml
+
+          then paste the content of docker-compose.yml file and then save.
+
+
+Before deployment, must install docker on server:
+1: ssh to your server, then run below commands:
+
+  Install required packages:
+    sudo apt update
+    sudo apt install -y ca-certificates curl gnupg
+
+  Add Docker GPG key:
+    sudo install -m 0755 -d /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+    sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+  Add Docker repository:
+    echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
+    https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) stable" | \
+    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+  Install Docker:
+    sudo apt update
+    sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+  Start Docker:
+    sudo systemctl enable docker
+    sudo systemctl start docker
+
+  Allow your user to run Docker:
+    sudo usermod -aG docker $USER
+
+  Then exit and again ssh to your server.
+
+  Verify:
+    docker --version
+    docker compose version

@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+# =========================================
+# Docker helper script
+# =========================================
+# This script wraps docker-compose commands
+# for easier development, testing, and debugging.
+# Make it executable once: chmod +x bin/docker
+# =========================================
+
+# Compose command with both dev and base configs
+COMPOSE="docker compose -f docker-compose.dev.yml"
+
+case "$1" in
+  # ---------------------------
+  # Start containers in development mode
+  # Usage: bin/docker up
+  # ---------------------------
+  up)
+    $COMPOSE up
+    ;;
+
+  # ---------------------------
+  # Rebuild containers and start
+  # Usage: bin/docker build
+  # ---------------------------
+  build)
+    $COMPOSE build
+    ;;
+
+  # ---------------------------
+  # Stop and remove containers
+  # Usage: bin/docker down
+  # ---------------------------
+  down)
+    $COMPOSE down
+    ;;
+
+  # ---------------------------
+  # Run any Rails command inside the web container
+  # Usage: bin/docker rails <command>
+  # Example: bin/docker rails db:migrate
+  # ---------------------------
+  rails)
+    shift
+    $COMPOSE exec web bundle exec rails "$@"
+    ;;
+  # ---------------------------
+  # Open Rails console inside the container
+  # Usage: bin/docker console OR bin/docker c
+  # ---------------------------
+  console|c)
+    $COMPOSE exec web bundle exec rails console
+    ;;
+
+  # ---------------------------
+  # Open a shell inside the web container
+  # Usage: bin/docker bash
+  # ---------------------------
+  bash)
+    $COMPOSE exec web bash
+    ;;
+
+  # ---------------------------
+  # Run RSpec tests inside the container
+  # Usage: bin/docker rspec [optional args]
+  # Examples:
+  #   bin/docker rspec             -> run all specs in test env
+  #   bin/docker rspec spec/models -> run only model specs
+  # ---------------------------
+  rspec)
+    shift
+    # Ensure RAILS_ENV=test and use bundle exec
+    $COMPOSE exec -e RAILS_ENV=test web bundle exec rspec "$@"
+    ;;
+
+  # ---------------------------
+  # Default usage message
+  # ---------------------------
+  *)
+    echo "Usage:"
+    echo "  bin/docker up                -> Start dev containers (Rails + DB)"
+    echo "  bin/docker build             -> Rebuild and start containers"
+    echo "  bin/docker down              -> Stop and remove containers"
+    echo "  bin/docker rails <command>   -> Run any Rails command inside container"
+    echo "       Example: bin/docker rails db:migrate"
+    echo "  bin/docker bundle exec console (or c)    -> Open Rails console"
+    echo "  bin/docker bash              -> Open shell inside web container"
+    echo "  bin/docker rspec [args]      -> Run RSpec tests inside container"
+    ;;
+esac
+
+# ========================================================
+# NOTE:
+# Make sure this file is executable:
+#   chmod +x bin/docker
+#
+# Commands overview:
+#   bin/docker up       -> Start the application (dev mode)
+#   bin/docker build    -> Rebuild containers
+#   bin/docker down     -> Stop containers
+#   bin/docker rails    -> Run Rails commands
+#   bin/docker console  -> Rails console
+#   bin/docker bash     -> Shell inside web container
+#   bin/docker rspec    -> Run tests inside container (RAILS_ENV=test)
+# ========================================================
