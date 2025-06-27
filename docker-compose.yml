@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: pankajroy
+      POSTGRES_PASSWORD: Pankajroy@01
+      POSTGRES_DB: portfolio_development
+    ports:
+      - "5432:5432"
+
+  web:
+    build:
+      context: .
+    tty: true
+    stdin_open: true
+    environment:
+      RAILS_ENV: development
+      DATABASE_HOST: db
+      DATABASE_USERNAME: pankajroy
+      DATABASE_PASSWORD: Pankajroy@01
+    volumes:
+      - .:/app
+      - bundle:/usr/local/bundle
+      - node_modules:/app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    command: ./bin/dev
+
+volumes:
+  pgdata:
+  bundle:
+  node_modules:
