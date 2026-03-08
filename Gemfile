@@ -80,6 +80,14 @@ group :test do
   gem "selenium-webdriver"
 end
 
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'shoulda-matchers'
+  gem 'database_cleaner-active_record'
+end
+
 gem "apollo_upload_server", "~> 2.1.5"
 gem "graphql_playground-rails", "~> 2.1.0"
 gem "devise"
@@ -102,3 +110,5 @@ gem 'jquery-rails', '~> 4.6'
 gem 'sassc-rails'
 gem 'acts_as_list'
 gem "rest-client", "~> 2.1"
+gem "foreman"
+

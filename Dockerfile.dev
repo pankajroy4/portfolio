@@ -1,0 +1,37 @@
+FROM ruby:3.2.0
+
+WORKDIR /app
+
+ENV RAILS_ENV=development \
+    BUNDLE_PATH=/usr/local/bundle
+    
+ENV PATH="/usr/local/bundle/bin:$PATH"
+
+# Install dependencies + Node 18 + Yarn
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+      build-essential \
+      curl \
+      git \
+      libpq-dev \
+      libvips \
+      pkg-config \
+      python-is-python3 && \
+    curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install --no-install-recommends -y nodejs && \
+    npm install -g yarn@1.22.22 && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+
+# Install gems (cached layer)
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+# Install node modules (cached layer)
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+
+EXPOSE 3000
+
+# ENTRYPOINT ["docker-entrypoint"]
+ENTRYPOINT ["./script/start_dev.sh"]
+CMD ["bin/dev"]
