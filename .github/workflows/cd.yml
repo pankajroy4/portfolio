@@ -2,26 +2,47 @@ name: "Ruby on Rails CD"
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "PORTFOLIO-44-DOCKERIZATION" ]
 
 jobs:
 
-  build:
+  test:
     runs-on: ubuntu-latest
+
+    env:
+      DATABASE_HOST: db
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_DB: portfolio_test
+      POSTGRES_TEST_DB: portfolio_test
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build test image
+      # Build docker image once
+      - name: Build Docker Image
         run: |
           docker build \
             --build-arg RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }} \
             -t portfolio:latest .
 
+      # Start DB container
+      - name: Start DB
+        run: docker compose -f docker-compose.dev.yml up -d db
+
+      # Prepare DB
+      - name: Prepare DB
+        run: docker compose -f docker-compose.dev.yml run --rm --entrypoint="" web bundle exec rails db:prepare
+
+      # Run tests
+      - name: Run tests
+        run: docker compose -f docker-compose.dev.yml run --rm --entrypoint="" web bundle exec rspec
+
+
   push_image:
     runs-on: ubuntu-latest
-    needs: build
+    needs: test
 
     steps:
       - name: Checkout code
@@ -41,6 +62,7 @@ jobs:
           build-args: |
             RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}
           tags: pankajroy4/portfolio:latest
+
 
   deploy:
     runs-on: ubuntu-latest
@@ -65,5 +87,3 @@ jobs:
 
             docker compose -f docker-compose.yml pull
             docker compose -f docker-compose.yml up -d --remove-orphans
-
-            
