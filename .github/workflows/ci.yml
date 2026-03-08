@@ -1,0 +1,67 @@
+
+name: "Ruby on Rails - Portfolio CI"
+
+on:
+  pull_request:
+    branches: [ development ]
+
+  push:
+    branches: [ development ]
+
+jobs:
+
+  # security:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - uses: ruby/setup-ruby@v1
+  #       with:
+  #         ruby-version: .ruby-version
+  #         bundler-cache: true
+
+  #     - name: Run Brakeman
+  #       run: bin/brakeman --no-pager
+
+  # lint:
+    # runs-on: ubuntu-latest
+    # steps:
+    #   - uses: actions/checkout@v4
+
+    #   - uses: ruby/setup-ruby@v1
+    #     with:
+    #       ruby-version: .ruby-version
+    #       bundler-cache: true
+
+    #   - name: Run RuboCop
+    #     run: bin/rubocop -f github
+
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      DATABASE_HOST: db
+      POSTGRES_USER: pankajroy
+      POSTGRES_PASSWORD: Pankajroy@01
+      POSTGRES_DB: portfolio_test
+      POSTGRES_TEST_DB: portfolio_test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Build the image using both compose files
+      - name: Build Docker Image
+        run: docker compose -f docker-compose.dev.yml build
+
+      # Start only the DB container
+      - name: Start DB Container
+        run: docker compose -f docker-compose.dev.yml up -d db
+
+      # Prepare the database inside the web container
+      - name: Prepare Database
+        run: docker compose -f docker-compose.dev.yml run --rm --entrypoint="" web bundle exec rails db:prepare
+
+      # Run RSpec tests inside the web container
+      - name: Run tests
+        run: docker compose -f docker-compose.dev.yml run --rm --entrypoint="" web bundle exec rspec

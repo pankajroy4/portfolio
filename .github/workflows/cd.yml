@@ -1,0 +1,89 @@
+name: "Ruby on Rails CD"
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      DATABASE_HOST: db
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_DB: portfolio_test
+      POSTGRES_TEST_DB: portfolio_test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Build docker image once
+      - name: Build Docker Image
+        run: |
+          docker build \
+            --build-arg RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }} \
+            -t portfolio:latest .
+
+      # Start DB container
+      - name: Start DB
+        run: docker compose -f docker-compose.dev.yml up -d db
+
+      # Prepare DB
+      - name: Prepare DB
+        run: docker compose -f docker-compose.dev.yml run --rm --entrypoint="" web bundle exec rails db:prepare
+
+      # Run tests
+      - name: Run tests
+        run: docker compose -f docker-compose.dev.yml run --rm --entrypoint="" web bundle exec rspec
+
+
+  push_image:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build & push image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          build-args: |
+            RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}
+          tags: pankajroy4/portfolio:latest
+
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: push_image
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd apps/portfolio
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+            export POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+            export POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+            export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+            export DATABASE_HOST=db
+            export RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}
+
+            docker compose -f docker-compose.yml pull
+            docker compose -f docker-compose.yml up -d --remove-orphans

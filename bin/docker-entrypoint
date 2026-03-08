@@ -1,8 +1,25 @@
-#!/bin/bash -e
+#!/bin/bash
+set -e
 
-# If running the rails server then create or migrate existing database
-if [ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]; then
-  ./bin/rails db:prepare
-fi
+# Run pending migrations automatically
+echo "Checking for pending migrations..."
+bundle exec rails db:migrate 2>/dev/null || bundle exec rails db:create db:migrate
 
-exec "${@}"
+# # Ensure Foreman is available
+# if ! gem list --exact --silent foreman | grep -q foreman; then
+#   echo "Installing foreman..."
+#   gem install foreman
+# fi
+
+# # Ensure Node dependencies exist (for esbuild)
+# if [ ! -d node_modules ]; then
+#   echo "Installing Node dependencies..."
+#   yarn install --frozen-lockfile
+# fi
+
+# # Run initial JS/CSS build (this triggers esbuild)
+# echo "Running initial JS build..."
+# yarn build
+
+# Then execute the CMD (like bin/dev)
+exec "$@"

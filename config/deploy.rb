@@ -39,3 +39,25 @@ end
 
 #NOTE: After deployment, goto current folder at server and run the command to build the css:
 # yarn build:css
+
+
+docker compose down --volumes --remove-orphans
+docker rmi -f $(docker images -aq)
+docker builder prune --all --force
+docker system prune --all --volumes --force
+docker system df
+
+
+docker compose run web bundle exec rake db:create db:migrate 
+docker compose run web bundle exec rake db:seed 
+
+
+# NOTE:
+# To seed the data in docker container run the command:
+#     docker compose exec web bin/rails db:seed
+
+# To run rails console in docker container run the command:
+#     docker compose exec web bin/rails c
+
+# To Drop database and seed
+#   docker compose exec web bin/rails db:drop db:create db:migrate db:seed
