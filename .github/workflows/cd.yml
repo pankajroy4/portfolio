@@ -2,7 +2,7 @@ name: "Ruby on Rails CD"
 
 on:
   push:
-    branches: [ "PORTFOLIO-44-DOCKERIZATION" ]
+    branches: [ "main" ]
 
 jobs:
 
