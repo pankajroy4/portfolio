@@ -303,3 +303,10 @@ Before deployment, must install docker on server:
 
 Note: Now we have seperate docker compose file for developemt and production.
 To run app on developemt, use the command: docker compose -f docker-compose.dev.yml up
+
+
+NOTE: when you changed your pem file, then add new pem file in ssh folder using this command
+ ssh-add ~/.ssh/your_pem_file.pem
+
+Now check conncetion: 
+ssh -i ~/.ssh/your_pem_file.pem ubuntu@13.235.104.44  (Replace with your host)    
