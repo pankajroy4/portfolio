@@ -57,7 +57,8 @@
   #Connect to your Virtual machine.
   #Create Nginx Config for pankajroy.in if not have yet.
   # You can check by: ls -l /etc/nginx/sites-enabled/ 
-  /etc/nginx/sites-available/portfolio
+  # create file: 
+  sudo nano /etc/nginx/sites-available/portfolio
 
   #Paste code like this:
 
@@ -298,3 +299,7 @@ Before deployment, must install docker on server:
   Verify:
     docker --version
     docker compose version
+
+
+Note: Now we have seperate docker compose file for developemt and production.
+To run app on developemt, use the command: docker compose -f docker-compose.dev.yml up
