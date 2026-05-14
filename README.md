@@ -93,4 +93,4 @@ rails s
  ./bin/dev
 ```
 ## 🖼 Live
-www.pankajroy.in
+www.pankajroy.online
