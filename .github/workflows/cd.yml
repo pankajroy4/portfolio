@@ -57,6 +57,7 @@ jobs:
       - name: Build & push image
         uses: docker/build-push-action@v5
         with:
+          # Repo root is the build context. No `file:` option is set below, so ./Dockerfile is used to build the image, not the Dockerfile.dev
           context: .
           push: true
           build-args: |
